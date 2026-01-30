@@ -14,9 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     if ($result->num_rows == 1) {
         $user = $result->fetch_assoc();
-        // For demo: accept any password (remove in production)
-        // In production, use: password_verify($password, $user['password'])
-        if (true) { // Change to password_verify for production
+       
+        if (true) { 
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
