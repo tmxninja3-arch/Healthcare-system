@@ -20,7 +20,7 @@ $overdue_sql = "SELECT
     p.name,
     p.phone,
     DATE_FORMAT(v.follow_up_due, '%M %d, %Y') as followup_date,
-    DATEDIFF(CURDATE(), v.follow_up_due) as days_overdue
+    DATEDIFF(CURDATE(), v.follow_up_due) as days_overdue                        
 FROM visits v
 JOIN patients p ON v.patient_id = p.patient_id
 WHERE v.follow_up_due < CURDATE()

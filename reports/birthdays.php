@@ -10,14 +10,14 @@ $upcoming_birthdays_sql = "SELECT
     DATE_FORMAT(
         DATE_ADD(
             dob, 
-            INTERVAL TIMESTAMPDIFF(YEAR, dob, CURDATE()) + 1 YEAR
+            INTERVAL TIMESTAMPDIFF(YEAR, dob, CURDATE()) + 1 YEAR        -- Calculate next birthday
         ), 
         '%M %d, %Y'
     ) as next_birthday,
     DATEDIFF(
         DATE_ADD(
             dob, 
-            INTERVAL TIMESTAMPDIFF(YEAR, dob, CURDATE()) + 1 YEAR
+            INTERVAL TIMESTAMPDIFF(YEAR, dob, CURDATE()) + 1 YEAR      
         ),
         CURDATE()
     ) as days_until

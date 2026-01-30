@@ -8,7 +8,7 @@ $sql = "SELECT
     p.name as patient_name,
     p.patient_id,
     DATE_FORMAT(v.visit_date, '%M %d, %Y') as visit_date,
-    DATEDIFF(CURDATE(), v.visit_date) as days_since,
+    DATEDIFF(CURDATE(), v.visit_date) as days_since,       --Calculates number of days passed since the visit
     v.consultation_fee + v.lab_fee as total_fee,
     DATE_FORMAT(v.follow_up_due, '%M %d, %Y') as followup,
     CASE 

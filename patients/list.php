@@ -10,13 +10,13 @@ $where = $search ? "WHERE name LIKE '%$search%' OR phone LIKE '%$search%'" : '';
 $sql = "SELECT 
     patient_id,
     name,
-    DATE_FORMAT(dob, '%M %d, %Y') as dob_formatted,
+    DATE_FORMAT(dob, '%M %d, %Y') as dob_formatted,                -- Age in years
     TIMESTAMPDIFF(YEAR, dob, CURDATE()) as age_years,
     CONCAT(
-        TIMESTAMPDIFF(YEAR, dob, CURDATE()), ' years ',
+        TIMESTAMPDIFF(YEAR, dob, CURDATE()), ' years ',          -- Full age with months
         TIMESTAMPDIFF(MONTH, dob, CURDATE()) % 12, ' months'
     ) as full_age,
-    DATE_FORMAT(join_date, '%M %d, %Y') as join_formatted,
+    DATE_FORMAT(join_date, '%M %d, %Y') as join_formatted,      -- Join date parts
     YEAR(join_date) as join_year,
     MONTHNAME(join_date) as join_month,
     DAY(join_date) as join_day,

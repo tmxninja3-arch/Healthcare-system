@@ -57,10 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
         </form>
-        <p style="margin-top: 20px; text-align: center; color: #666;">
-            Demo users: admin, doctor1, reception1<br>
-            Password: any (for demo)
-        </p>
+       
     </div>
 </body>
 </html>

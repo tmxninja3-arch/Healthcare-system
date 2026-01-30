@@ -6,17 +6,19 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 // Get patient details with SQL calculations
 $sql = "SELECT 
-    p.*,
+    p.*,      -- All columns from patients table
     DATE_FORMAT(p.dob, '%M %d, %Y') as dob_formatted,
     TIMESTAMPDIFF(YEAR, p.dob, CURDATE()) as age,
     DATE_FORMAT(p.join_date, '%M %d, %Y') as join_formatted,
-    (SELECT COUNT(*) FROM visits WHERE patient_id = p.patient_id) as total_visits,
-    (SELECT DATE_FORMAT(MAX(visit_date), '%M %d, %Y') FROM visits WHERE patient_id = p.patient_id) as last_visit,
-    (SELECT DATEDIFF(CURDATE(), MAX(visit_date)) FROM visits WHERE patient_id = p.patient_id) as days_since_visit,
-    (SELECT DATE_FORMAT(follow_up_due, '%M %d, %Y') FROM visits WHERE patient_id = p.patient_id ORDER BY visit_date DESC LIMIT 1) as next_followup,
+
+    (SELECT COUNT(*) FROM visits WHERE patient_id = p.patient_id) as total_visits,   -- Total visits
+
+    (SELECT DATE_FORMAT(MAX(visit_date), '%M %d, %Y') FROM visits WHERE patient_id = p.patient_id) as last_visit,   -- Last visit date
+    (SELECT DATEDIFF(CURDATE(), MAX(visit_date)) FROM visits WHERE patient_id = p.patient_id) as days_since_visit,     -- Days since last visit
+    (SELECT DATE_FORMAT(follow_up_due, '%M %d, %Y') FROM visits WHERE patient_id = p.patient_id ORDER BY visit_date DESC LIMIT 1) as next_followup,  -- Next follow-up
     (SELECT CASE 
         WHEN follow_up_due < CURDATE() THEN 'Overdue'
-        WHEN follow_up_due = CURDATE() THEN 'Today'
+        WHEN follow_up_due = CURDATE() THEN 'Today'        -- Follow-up status
         ELSE 'Scheduled'
     END FROM visits WHERE patient_id = p.patient_id ORDER BY visit_date DESC LIMIT 1) as followup_status
 FROM patients p
